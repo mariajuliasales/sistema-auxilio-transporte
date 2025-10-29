@@ -1,3 +1,14 @@
+/*
+- 2. INSERÇÃO DE DADOS
+    -- Inserção de funcionários (20 registros)
+
+    -- Inserção de solicitações (25 registros com datas variadas)
+
+    -- Inserção de pagamentos (20 registros)
+
+    -- Inserção de logs de auditoria
+*/
+
 INSERT INTO funcionarios (nome, cpf, matricula, cargo, departamento, endereco, cidade, uf, meio_transporte)
 VALUES
 ('Ana Clara Souza', '12345678901', 'MAT001', 'Analista de Sistemas', 'TI', 'Rua A, 100', 'Cataguases', 'MG', 'Ônibus'),

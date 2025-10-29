@@ -1,3 +1,19 @@
+/*
+-- QUESTÃO 5 - SUBCONSULTA e WINDOW FUNCTION
+    Crie uma consulta que identifique os funcionários "top gastadores":
+        - Nome do funcionário
+        - Departamento
+        - Total gasto
+        - Quantidade de solicitações aprovadas
+        - Ranking dentro do departamento
+        - Percentual do total do departamento
+
+    Requisitos:
+        - Apenas solicitações APROVADAS com pagamentos
+        - TOP 3 de cada departamento
+        - Percentual com 2 casas decimais
+*/
+
 WITH ranking_funcionarios AS (
     SELECT
         f.nome,

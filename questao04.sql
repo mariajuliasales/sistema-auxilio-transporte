@@ -1,3 +1,13 @@
+/*
+-- QUESTÃO 4 - STORED PROCEDURE
+    Crie uma STORED PROCEDURE chamada sp_cancelar_solicitacao que:
+        - Receba ID da solicitação e motivo
+        - Verifique se pode cancelar (não pode se já foi PAGO)
+        - Atualize o status para CANCELADO
+        - Registre no log
+        - Retorne mensagem de sucesso ou erro
+*/
+
 CREATE OR REPLACE PROCEDURE sp_cancelar_solicitacao(
     p_id_solicitacao INT,
     p_motivo TEXT

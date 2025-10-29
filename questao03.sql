@@ -1,3 +1,11 @@
+/*
+- QUESTÃO 3 - TRIGGER 
+    Crie um TRIGGER que:
+        - Seja acionado APÓS a inserção de um novo registro na tabela pagamentos
+        - Atualize automaticamente o status da solicitação correspondente para 'PAGO'
+        - Registre na tabela log_auditoria as informações da operação
+*/
+
 CREATE OR REPLACE FUNCTION trg_pagamento_atualiza_status()
 RETURNS TRIGGER AS $$
 BEGIN
