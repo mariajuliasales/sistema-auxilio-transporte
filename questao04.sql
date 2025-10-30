@@ -8,10 +8,11 @@
         - Retorne mensagem de sucesso ou erro
 */
 
-CREATE OR REPLACE PROCEDURE sp_cancelar_solicitacao(
+CREATE OR REPLACE FUNCTION sp_cancelar_solicitacao(
     p_id_solicitacao INT,
     p_motivo TEXT
 )
+RETURNS TEXT
 LANGUAGE plpgsql
 AS $$
 DECLARE
@@ -22,13 +23,15 @@ BEGIN
     WHERE id_solicitacao = p_id_solicitacao;
 
     IF NOT FOUND THEN
-        RAISE NOTICE ' Solicitação % não encontrada.', p_id_solicitacao;
-        RETURN;
+        RETURN FORMAT(' Solicitação %s não encontrada.', p_id_solicitacao);
     END IF;
 
     IF v_status_atual = 'PAGO' THEN
-        RAISE NOTICE ' Não é possível cancelar. Solicitação % já foi paga.', p_id_solicitacao;
-        RETURN;
+        RETURN FORMAT(' Não é possível cancelar. Solicitação %s já foi paga.', p_id_solicitacao);
+    END IF;
+
+    IF v_status_atual = 'CANCELADO' THEN
+        RETURN FORMAT(' Solicitação %s já está cancelada.', p_id_solicitacao);
     END IF;
 
     UPDATE solicitacoes_auxilio
@@ -43,7 +46,7 @@ BEGIN
         'Solicitação cancelada. Motivo: ' || p_motivo
     );
 
-    RAISE NOTICE ' Solicitação % cancelada com sucesso. Motivo: %', p_id_solicitacao, p_motivo;
+    RETURN FORMAT(' Solicitação %s cancelada com sucesso. Motivo: %s', p_id_solicitacao, p_motivo);
 
 END;
 $$;
