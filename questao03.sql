@@ -8,8 +8,18 @@
 
 CREATE OR REPLACE FUNCTION trg_pagamento_atualiza_status()
 RETURNS TRIGGER AS $$
+DECLARE
+    v_status_atual VARCHAR(20);
 BEGIN
+
+    SELECT status INTO v_status_atual
+    FROM solicitacoes_auxilio
+    WHERE id_solicitacao = NEW.id_solicitacao;
     
+    IF v_status_atual IN ('CANCELADO', 'REJEITADO') THEN
+    RAISE EXCEPTION 'Não é possível pagar uma solicitação com status % (ID: %)', v_status_atual, NEW.id_solicitacao;
+    END IF;
+
     UPDATE solicitacoes_auxilio
     SET status = 'PAGO'
     WHERE id_solicitacao = NEW.id_solicitacao;
